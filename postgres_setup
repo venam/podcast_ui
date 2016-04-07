@@ -1,0 +1,21 @@
+create user username
+adduser username
+set the user password
+passwd username
+login with postgres
+su - postgres
+create user username
+CREATE USER username WITH PASSWORD 'newpasswordhere';
+create database test_banks with owner username
+psql -d db_name < podcast_example_test.sql
+GRANT ALL PRIVILEGES ON DATABASE test_banks to username;
+
+/etc/postgres/...pg_hba.conf
+host    all         all         ip/24        md5
+/etc/postgres/.../postgres.conf
+#listen_addresses = '*'                 # what IP address(es) to listen on;
+                                        # comma-separated list of addresses;
+                                        # defaults to 'localhost'; use '*' for all
+                                        # (change requires restart)
+port = custom_port                             # (change requires restart)
+max_connections = 100                   # (change requires restart)
