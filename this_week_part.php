@@ -16,9 +16,15 @@ else {
 	foreach($possible_times as $p) {
 		echo '<br/>';
 		$tt = get_user_current_timezone($dbConnection);
+		$users_at_time = get_users_at_specific_time($p['start_time'], $dbConnection);
+		$users_string = ' ';
+		foreach ($users_at_time as $us) {
+			$users_string .= $us['username'] . ' ';
+		}
+		
 		echo convert_time_to_user_timezone_string($p['start_time'], $tt).
 			' GMT'.($tt<0?'-':'+').$tt.
-			' With '.$p['nb_users'].' users';
+			' With '.$p['nb_users'].' users: '. $users_string;
 	}
 }
 		?> </td>

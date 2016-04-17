@@ -128,9 +128,20 @@ function get_this_week_time($psql) {
 		FROM available_times
 		GROUP BY start_time
 		ORDER BY nb_users DESC
-		LIMIT 2";
+		LIMIT 4";
 	$sth = $psql->prepare($query);
 	$sth->execute(array());
+	$result = $sth->fetchAll();
+	return $result;
+}
+
+function get_users_at_specific_time($time, $psql) {
+	$query = "SELECT username
+		FROM users, available_times
+		WHERE start_time = ?
+			AND available_times.uid=users.id";
+	$sth = $psql->prepare($query);
+	$sth->execute(array($time));
 	$result = $sth->fetchAll();
 	return $result;
 }
