@@ -35,7 +35,7 @@ function get_this_week_topic($psql) {
 	$query = "SELECT
 		topic.name, topic.description
 		FROM topic
-		WHERE topic.id = (select max(this_week.id) from this_week)
+		ORDER BY topic.id DESC
 		LIMIT 1";
 	$sth = $psql->prepare($query);
 	$sth->execute(array());
@@ -116,7 +116,7 @@ function set_user_availabe_time($schedule, $psql) {
 		$s = intval($s);
 		$query = "INSERT INTO available_times
 			(uid, start_time, topic_id)
-			VALUES(?,?, (select id from this_week limit 1) )";
+			VALUES(?,?, (select max(id) from topic) )";
 		$sth = $psql->prepare($query);
 		$result = $sth->execute(array($_SESSION['user_id'], $s));
 	}
