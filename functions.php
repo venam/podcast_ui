@@ -34,8 +34,8 @@ function sec_session_start() {
 function get_this_week_topic($psql) {
 	$query = "SELECT
 		topic.name, topic.description
-		FROM topic, this_week
-		WHERE topic.id = this_week.id
+		FROM topic
+		WHERE topic.id = (select max(this_week.id) from this_week)
 		LIMIT 1";
 	$sth = $psql->prepare($query);
 	$sth->execute(array());
